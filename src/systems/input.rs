@@ -31,8 +31,8 @@ impl<'s> System<'s> for GameInputSystem {
         let opt_ud_movement = input.axis_value("up_down");
         let opt_lr_movement = input.axis_value("left_right");
 
-        for (mut map) in (&mut maps).join() {
-            if (map.map_change_cooldown > 0) {
+        for mut map in (&mut maps).join() {
+            if map.map_change_cooldown > 0 {
                 map.map_change_cooldown -= 1;
             }
         }
@@ -177,7 +177,7 @@ fn valid_pos(map_x: u32, map_y: u32, map: &Map) -> bool {
     let tiles = &map.layers[map.current_layer];
     match get_tile(tiles, map_x as usize, map_y as usize) {
         Tile::Grass | Tile::AlienDirt => true,
-        a => false
+        _ => false
     }
 }
 

@@ -13,6 +13,7 @@ use amethyst::{
     },
     input::InputBundle,
     renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, SpriteRender, Stage},
+    ui::{DrawUi, UiBundle},
     utils::application_root_dir
 };
 
@@ -69,7 +70,8 @@ fn main() -> amethyst::Result<()> {
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
             .clear_target([0.0, 0.0, 0.0, 1.0], 1.0)
-            .with_pass(DrawFlat2D::new()),
+            .with_pass(DrawFlat2D::new())
+            .with_pass(DrawUi::new()),
     );
 
     let game_data = GameDataBuilder::default()
@@ -78,7 +80,8 @@ fn main() -> amethyst::Result<()> {
         )?
         .with_bundle(GameBundle)?
         .with_bundle(TransformBundle::new().with_dep(&["movement_system"]))?
-        .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?;
+        .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?
+        .with_bundle(UiBundle::<String, String>::new())?;
 
     let mut game = Application::build(assets_dir, BullMaze)?
         .with_frame_limit(

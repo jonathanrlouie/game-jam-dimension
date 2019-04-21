@@ -1,14 +1,15 @@
 use amethyst::{
     assets::{AssetStorage, Loader},
     core::transform::Transform,
-    prelude::{State, StateEvent, StateData, GameData, SimpleState},
+    prelude::{StateData, GameData, SimpleState},
     ecs::prelude::{World, Builder},
     renderer::{Camera, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle,
-               Texture, TextureMetadata}
+               Texture, TextureMetadata},
+    ui::{Anchor, TtfFormat, UiText, UiTransform},
 };
 use super::components;
 use super::components::{Direction, Action};
-use crate::{match_tile, SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, MAP_SIZE, TILE_SIZE, get_map_size};
+use crate::{systems::win::WinText, match_tile, SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_SIZE, TILE_SIZE};
 
 struct Bull {
     pos: (u32, u32)
@@ -172,6 +173,7 @@ impl SimpleState for BullMaze {
         bull.initialise(world, sprite_sheet_handle.clone(), &map);
 
         initialise_exit(world, sprite_sheet_handle, &map);
+        initialise_win_text(world);
     }
 }
 
@@ -241,4 +243,37 @@ fn initialise_exit(world: &mut World, sprite_sheet_handle: SpriteSheetHandle, ma
         .with(components::Exit)
         .with(transform)
         .build();
+}
+
+fn initialise_win_text(world: &mut World) {
+    let font = world.read_resource::<Loader>().load(
+        "font/BullFont.ttf",
+        TtfFormat,
+        Default::default(),
+        (),
+        &world.read_resource(),
+    );
+
+    let transform = UiTransform::new(
+        "win text".to_string(),
+        Anchor::Middle,
+        0.,
+        0.,
+        1.,
+        2000.,
+        500.,
+    );
+
+    let win_text = world
+        .create_entity()
+        .with(transform)
+        .with(UiText::new(
+            font.clone(),
+            "".to_string(),
+            [1.0, 1.0, 1.0, 1.0],
+            100.,
+        ))
+        .build();
+
+    world.add_resource(WinText { win_text });
 }
