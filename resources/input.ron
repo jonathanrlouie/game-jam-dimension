@@ -1,0 +1,15 @@
+(
+    axes: {
+        "up_down": Emulated(
+            pos: Key(Down),
+            neg: Key(Up),
+        ),
+        "left_right": Emulated(
+            pos: Key(Right),
+            neg: Key(Left),
+        ),
+    },
+    actions: {
+        "tele": [[Key(Space)]]
+    },
+)

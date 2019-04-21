@@ -1,0 +1,8 @@
+[package]
+name = "game-jam-dimension"
+version = "0.1.0"
+authors = ["Jonathan Louie <jonathanrlouie@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+amethyst = { git = "https://github.com/amethyst/amethyst", rev = "395ab262038335e589001d8a302eeff8805975a9" }
