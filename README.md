@@ -10,7 +10,7 @@ OH NO I FELL INTO ANOTHER DIMENSION
 
 ## Screenshot
 
-![Game Screenshot](Screenshot.png)
+![Game Screenshot](Screenshot.PNG)
 
 ## Running the game
 
