@@ -7,3 +7,11 @@ Bull's Dimensional Maze is a small game I made for a practice game jam to test m
 ## Theme
 
 OH NO I FELL INTO ANOTHER DIMENSION
+
+## Screenshot
+
+![Game Screenshot](Screenshot.png)
+
+## Running the game
+
+I didn't include any pre-built binaries, so you will need to install Rust. You might also need to install the [Amethyst dependencies](https://github.com/amethyst/amethyst#dependencies).
